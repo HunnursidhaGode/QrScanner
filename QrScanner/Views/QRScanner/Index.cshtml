@@ -1,0 +1,93 @@
+﻿@model QrScanner.Models.QRCodemodel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center; /* center horizontally */
+            align-items: center; /* center vertically */
+            background: linear-gradient(135deg, #6a11cb, #2575fc); /* gradient background */
+            font-family: Arial, sans-serif;
+        }
+
+        .qr-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+            text-align: center;
+            width: 380px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .btn {
+            margin-top: 15px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-default {
+            background: linear-gradient(45deg, #ff6a00, #ee0979);
+        }
+
+            .btn-default:hover {
+                background: linear-gradient(45deg, #ee0979, #ff6a00);
+            }
+
+        .btn-download {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+        }
+
+            .btn-download:hover {
+                background: linear-gradient(45deg, #0072ff, #00c6ff);
+            }
+
+        img {
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 3px solid #2575fc;
+        }
+    </style>
+</head>
+<body>
+    <div class="qr-box">
+        <h2 style="color:#2575fc;">QR Code Generator</h2>
+        @using (Html.BeginForm())
+        {
+            @Html.Label("Enter QR Code Text")
+            @Html.TextBoxFor(m => m.QRCodeText, new { @class = "form-control", placeholder = "Type here..." })
+            <br />
+            <input type="submit" value="Create QR Code" class="btn btn-default" />
+
+            @* Image display code *@
+            if (!string.IsNullOrEmpty(Model.QRImageUrl))
+            {
+                <div>
+                    <img height="250" width="250" src="@Model.QRImageUrl" />
+                    <br />
+                    <a href="@Model.QRImageUrl" download="QRCode.png" class="btn btn-download">Download QR Code</a>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>
